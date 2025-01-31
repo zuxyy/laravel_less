@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 /*
@@ -20,21 +20,21 @@ Route::get('/', function () {
 });
 
 // POST INDEX
-Route::get('/posts', [PostsController::class, 'index']);
+Route::get('/posts', [TestController::class, 'index']);
 
 // POST CREATE PAGE
-Route::get('/posts/create', [PostsController::class, 'create']);
+Route::get('/posts/create', [TestController::class, 'create']);
 // POST UPDATE PAGE
-Route::get('/posts/update', [PostsController::class, 'update']);
+Route::get('/posts/update', [TestController::class, 'update']);
 // POST DELETE PAGE
-Route::get('/posts/delete', [PostsController::class, 'delete']);
+Route::get('/posts/delete', [TestController::class, 'delete']);
 // POST FIRST OR CREATE, TOPIB CHIQARISH TOPOLMASA CREATE QILISH
-Route::get('/posts/first-or-create', [PostsController::class, 'firstOrCreate']);
+Route::get('/posts/first-or-create', [TestController::class, 'firstOrCreate']);
 // POST UPDATE OR UPDATE, TOPIB UPDATE QILISH TOPOLMASA CREATE QILISH
-Route::get('/posts/update-or-create', [PostsController::class, 'updateOrCreate']);
+Route::get('/posts/update-or-create', [TestController::class, 'updateOrCreate']);
 
 
 Route::get('/about', [Controllers\AboutController::class, 'index'])->name('about.index');
 Route::get('/contacts', [Controllers\ContactsController::class, 'index'])->name('contact.index');
 Route::get('/main', [Controllers\MainController::class, 'index'])->name('main.index');
-Route::get('/post', [Controllers\PostController::class, 'index'])->name('post.index');
+Route::get('/posts', [Controllers\PostsController::class, 'index'])->name('post.index');

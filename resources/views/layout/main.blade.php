@@ -12,13 +12,16 @@
 <body>
 <div class="container">
     <div class="row">
-        <nav>
-            <ul>
-                <li><a href="{{ route('main.index') }}">Main</a></li>
-                <li><a href="{{ route('post.index') }}">Post</a></li>
-                <li><a href="{{ route('contact.index') }}">Contacts</a></li>
-                <li><a href="{{ route('about.index') }}">About</a></li>
-            </ul>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="{{ route('main.index') }}" class="nav-link">Main</a></li>
+                    <li class="nav-item"><a href="{{ route('post.index') }}"class="nav-link">Post</a></li>
+                    <li class="nav-item"><a href="{{ route('contact.index') }}" class="nav-link">Contacts</a></li>
+                    <li class="nav-item"><a href="{{ route('about.index') }}" class="nav-link">About</a></li>
+                </ul>
+            </div>
         </nav>
     </div>
 
