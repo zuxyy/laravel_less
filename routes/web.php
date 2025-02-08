@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\PostsController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
@@ -37,4 +37,7 @@ Route::get('/posts/update-or-create', [TestController::class, 'updateOrCreate'])
 Route::get('/about', [Controllers\AboutController::class, 'index'])->name('about.index');
 Route::get('/contacts', [Controllers\ContactsController::class, 'index'])->name('contact.index');
 Route::get('/main', [Controllers\MainController::class, 'index'])->name('main.index');
-Route::get('/posts', [Controllers\PostsController::class, 'index'])->name('post.index');
+Route::get('/post', [Controllers\PostController::class, 'index'])->name('post.index');
+Route::get('/post/create', [Controllers\PostController::class, 'create'])->name('post.create');
+Route::post('/post/', [Controllers\PostController::class, 'store'])->name('post.store');
+Route::get('/post/{post}', [Controllers\PostController::class, 'show'])->name('post.show');
