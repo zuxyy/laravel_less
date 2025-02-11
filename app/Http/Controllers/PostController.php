@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -9,10 +10,14 @@ class PostController extends Controller
 {
     public function index()
     {
+//        $posts = Post::all();
 
-        $posts = Post::all();
+        $category = Category::find(1);
+        $posts = Post::find(2);
+        dd($posts->category);
+        dd($category->posts);
 
-        return view('post.index', compact('posts'));
+        //return view('post.index', compact('posts'));
     }
 
     public function create()
@@ -45,7 +50,8 @@ class PostController extends Controller
         return view('post.edit', compact('post'));
     }
 
-    public function update(Post $post){
+    public function update(Post $post)
+    {
         $data = request()->validate([
             'title' => ['required', 'string', 'min:3', 'max:255'],
             'content' => 'required|string',
