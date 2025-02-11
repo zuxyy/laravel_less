@@ -34,10 +34,45 @@ Route::get('/posts/first-or-create', [TestController::class, 'firstOrCreate']);
 Route::get('/posts/update-or-create', [TestController::class, 'updateOrCreate']);
 
 
-Route::get('/about', [Controllers\AboutController::class, 'index'])->name('about.index');
-Route::get('/contacts', [Controllers\ContactsController::class, 'index'])->name('contact.index');
-Route::get('/main', [Controllers\MainController::class, 'index'])->name('main.index');
-Route::get('/post', [Controllers\PostController::class, 'index'])->name('post.index');
-Route::get('/post/create', [Controllers\PostController::class, 'create'])->name('post.create');
-Route::post('/post/', [Controllers\PostController::class, 'store'])->name('post.store');
-Route::get('/post/{post}', [Controllers\PostController::class, 'show'])->name('post.show');
+Route::get('/about', [AboutController::class, 'index'])->name('about.index');
+Route::get('/contacts', [ContactsController::class, 'index'])->name('contact.index');
+Route::get('/main', [MainController::class, 'index'])->name('main.index');
+
+# POST CRUD SYSTEM
+# POST INDEX
+Route::get('/posts', [PostController::class, 'index'])->name('post.index');
+# POST INDEX
+
+# POST CREATE
+Route::get('/posts/create', [PostController::class, 'create'])->name('post.create');
+# POST CREATE
+# POST STORE --> formada kelgan malumotlarni yig'ib bazaga yuborish
+Route::post('/posts', [PostController::class, 'store'])->name('post.store');
+# POST STORE
+
+# DELETED POSTS
+Route::get('/posts/deleted-posts', [PostController::class, 'deletedPosts'])->name('post.deletedPosts');
+# DELETED POSTS
+# DELETED POSTS RESTORE
+Route::get('/posts/restore-post/{post}', [PostController::class, 'restoreDeletedPost'])->name('post.restorePost');
+# DELETED POSTS RESTORE
+# RESTORE ALL POST
+Route::get('/posts/restore-all-post/', [PostController::class, 'restoreAllPost'])->name('post.restoreAllPost');
+# RESTORE ALL POST
+
+# POST VIEW --> DB DAGI BARCHA MALUMOTLARNI VIEWDA CHIQARISH
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('post.show');
+# POST VIEW
+
+# POST EDIT
+Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('post.edit');
+Route::patch('/posts/{post}', [PostController::class, 'update'])->name('post.update');
+# POST EDIT
+# POST DELETE
+Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('post.delete');
+# POST DELETE
+
+
+//Route::resource([
+//    'photos' => PhotoController::class,
+//]);

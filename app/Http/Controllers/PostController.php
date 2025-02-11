@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Posts;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Posts::all();
+
+        $posts = Post::all();
 
         return view('post.index', compact('posts'));
     }
@@ -22,17 +23,71 @@ class PostController extends Controller
     public function store()
     {
         $data = request()->validate([
-            'title' => 'string|required',
-            'content' => 'string|required',
-            'image' => 'string',
+            'title' => ['required', 'string', 'min:3', 'max:255'],
+            'content' => 'required|string',
+            'image' => 'nullable|string',
+        ], [
+            'title.required' => 'Sarlavha kiritish majburiy!',
+            'title.min' => 'Sarlavha kamida :min ta belgidan iborat bo‘lishi kerak.',
+            'content.required' => 'Maqola matni kiritish majburiy!',
         ]);
-        Posts::create($data);
+        Post::create($data);
         return redirect()->route('post.index');
     }
 
-    public function show(Posts $post)
+    public function show(Post $post)
     {
         return view('post.view', compact('post'));
     }
+
+    public function edit(Post $post)
+    {
+        return view('post.edit', compact('post'));
+    }
+
+    public function update(Post $post){
+        $data = request()->validate([
+            'title' => ['required', 'string', 'min:3', 'max:255'],
+            'content' => 'required|string',
+            'image' => 'nullable|string',
+        ], [
+            'title.required' => 'Sarlavha kiritish majburiy!',
+            'title.min' => 'Sarlavha kamida :min ta belgidan iborat bo‘lishi kerak.',
+            'content.required' => 'Maqola matni kiritish majburiy!',
+        ]);
+
+        $post->update($data);
+        return redirect()->route('post.show', $post->id);
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return redirect()->route('post.index');
+    }
+
+    # CUSTOM METHOD
+    public function deletedPosts()
+    {
+        $posts = Post::onlyTrashed()->get(); // Faqat o‘chirilgan postlarni olish
+        $hasDeletedPosts = $posts->count(); // O'chirilgan postlar borligini tekshirish
+
+        return view('post.deletedPosts', compact('posts', 'hasDeletedPosts'));
+    }
+
+
+    public function restoreDeletedPost($post)
+    {
+        $post = Post::withTrashed()->find($post);
+        $post->restore();
+        return redirect()->route('post.deletedPosts');
+    }
+
+    public function restoreAllPost()
+    {
+        $allPost = Post::onlyTrashed()->restore(); // Faqat o‘chirilgan postlarni tiklash
+        return redirect()->route('post.deletedPosts');
+    }
+
 
 }

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Posts;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
     public function index()
     {
-        $posts = Posts::all();
+        $posts = Post::all();
 
         foreach ($posts as $post){
             dump($post->title);
@@ -38,7 +38,7 @@ class TestController extends Controller
 //            dump($item['title']);
 //        }
         foreach ($arr as $item){
-            Posts::create([
+            Post::create([
                 'title' => $item['title'],
                 'content' => $item['content'],
                 'image' => $item['image'],
@@ -46,7 +46,7 @@ class TestController extends Controller
                 'status' => $item['status'],
             ]);
         }
-//        Posts::create([
+//        Post::create([
 //            'title' => "second_title",
 //            'content' => "second Content",
 //            'image' => "second_image.png",
@@ -59,7 +59,7 @@ class TestController extends Controller
 
     public function update()
     {
-        $post = Posts::find(2);
+        $post = Post::find(2);
         $post->update([
             'title' => "second_title",
             'content' => "second Content",
@@ -71,10 +71,10 @@ class TestController extends Controller
 
     public function delete()
     {
-//        $post = Posts::find(3);
+//        $post = Post::find(3);
 //        $post->delete($post);
         // DELETE QILINGANLARNI QAYTARISH
-//        $post = Posts::withTrashed()->find(3);
+//        $post = Post::withTrashed()->find(3);
 //        $post->restore($post);
     }
     // First or Create , BAZADAN TEKSHIRIB AGAR BO'LMASA CREATE QILISH UCHUN KERAKLI FUNCTION
@@ -89,7 +89,7 @@ class TestController extends Controller
             'status' => 1,
         ];
 
-        $post = Posts::firstOrCreate([
+        $post = Post::firstOrCreate([
             'title' => 'almashgan title' // qidiruv joyi
         ],[
             // agar topolmasa create qiluvchi joyi
@@ -113,7 +113,7 @@ class TestController extends Controller
             'status' => 1,
         ];
 
-        $post = Posts::updateOrCreate([
+        $post = Post::updateOrCreate([
             'title' => "some title", // QIDIRUVCHI JOYI
         ],[
             // AGAR QIDIRGAN JOYIDAN BAZADA TOPSA UDPATE QILADI YOKI PASDAGINI CREATE QILADI
