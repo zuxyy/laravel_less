@@ -27,7 +27,7 @@ return new class extends Migration
 
             $table->index('category_id', 'post_category_id_index');
 
-            $table->foreign('category_id', 'post_catefory_fk')->on('categories')->references('id');
+            $table->foreign('category_id', 'post_category_fk')->on('categories')->references('id')->onDelete();
 
         });
     }

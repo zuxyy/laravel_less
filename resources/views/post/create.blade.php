@@ -13,6 +13,7 @@
                     <p class="error-message">{{ $message }}</p>
                 @enderror
             </div>
+
             <div class="form-group mb-2">
                 <label for="content">Content</label>
                 <input type="text" name="content" class="form-control" id="content" placeholder="Content">
@@ -23,6 +24,14 @@
             <div class="form-group mb-3">
                 <label for="image">Image</label>
                 <input type="text" name="image" class="form-control" id="image" placeholder="Image">
+            </div>
+
+            <div class="form-group mb-2">
+                <label for="content">Content</label>
+                <input type="text" name="content" class="form-control" id="content" placeholder="Content">
+                @error('content')
+                <p class="error-message">{{ $message }}</p>
+                @enderror
             </div>
 
             <button type="submit" class="btn btn-primary">Create</button>

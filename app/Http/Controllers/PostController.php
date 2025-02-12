@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -12,10 +13,16 @@ class PostController extends Controller
     {
 //        $posts = Post::all();
 
-        $category = Category::find(1);
-        $posts = Post::find(2);
-        dd($posts->category);
-        dd($category->posts);
+        $category = Category::find(2);
+        $post = Post::find(1);
+        $tag = Tag::find(2);
+
+//        dd($posts->category);
+//        dd($post->tags);
+        dump($tag->id);
+        dd($tag->posts);
+
+
 
         //return view('post.index', compact('posts'));
     }
@@ -31,6 +38,7 @@ class PostController extends Controller
             'title' => ['required', 'string', 'min:3', 'max:255'],
             'content' => 'required|string',
             'image' => 'nullable|string',
+//            'image' => 'nullable|string',
         ], [
             'title.required' => 'Sarlavha kiritish majburiy!',
             'title.min' => 'Sarlavha kamida :min ta belgidan iborat bo‘lishi kerak.',
