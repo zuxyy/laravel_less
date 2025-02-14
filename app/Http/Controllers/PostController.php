@@ -11,25 +11,25 @@ class PostController extends Controller
 {
     public function index()
     {
-//        $posts = Post::all();
+        $posts = Post::all();
 
-        $category = Category::find(2);
-        $post = Post::find(1);
-        $tag = Tag::find(2);
+//        $category = Category::find(2);
+//        $post = Post::find(1);
+//        $tag = Tag::find(2);
 
 //        dd($posts->category);
 //        dd($post->tags);
-        dump($tag->id);
-        dd($tag->posts);
+//        dump($tag->id);
+//        dd($tag->posts);
 
 
-
-        //return view('post.index', compact('posts'));
+        return view('post.index', compact('posts'));
     }
 
     public function create()
     {
-        return view('post.create');
+        $categories = Category::all();
+        return view('post.create', compact('categories'));
     }
 
     public function store()
@@ -38,7 +38,7 @@ class PostController extends Controller
             'title' => ['required', 'string', 'min:3', 'max:255'],
             'content' => 'required|string',
             'image' => 'nullable|string',
-//            'image' => 'nullable|string',
+            'category_id' => '',
         ], [
             'title.required' => 'Sarlavha kiritish majburiy!',
             'title.min' => 'Sarlavha kamida :min ta belgidan iborat bo‘lishi kerak.',
@@ -50,12 +50,19 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
+//        $categories = Category::find($post);
+////        dd($categories);
+//   dd($post);
+
         return view('post.view', compact('post'));
     }
 
     public function edit(Post $post)
     {
-        return view('post.edit', compact('post'));
+//        $category = Category::find($post->id);
+        $categories = Category::all();
+//        dd($category);
+        return view('post.edit', compact('post','categories'));
     }
 
     public function update(Post $post)
@@ -64,6 +71,7 @@ class PostController extends Controller
             'title' => ['required', 'string', 'min:3', 'max:255'],
             'content' => 'required|string',
             'image' => 'nullable|string',
+            'category_id' => '',
         ], [
             'title.required' => 'Sarlavha kiritish majburiy!',
             'title.min' => 'Sarlavha kamida :min ta belgidan iborat bo‘lishi kerak.',
@@ -76,7 +84,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        $post->delete();
+        $post->forceDelete();
         return redirect()->route('post.index');
     }
 

@@ -22,6 +22,16 @@
                 <label for="image">Image</label>
                 <input type="text" name="image" class="form-control" id="image" value="{{ $post->image ? $post->image : "" }}" placeholder="Image">
             </div>
+            <select class="w-100 mb-2 custom" name="category_id">
+                @foreach($categories as $category)
+
+                        <option value="{{ $category->id }}" @if($category->id == $post->category_id ) selected @endif }}>
+                            {{ $category->title }}
+                        </option>
+
+                 
+                @endforeach
+            </select>
 
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
