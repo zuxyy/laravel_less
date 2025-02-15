@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\PostTag;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('post.create', compact('categories'));
+        $tags = Tag::all();
+        return view('post.create', compact('categories', 'tags'));
     }
 
     public function store()
@@ -39,12 +41,24 @@ class PostController extends Controller
             'content' => 'required|string',
             'image' => 'nullable|string',
             'category_id' => '',
+            'tags' => '',
         ], [
             'title.required' => 'Sarlavha kiritish majburiy!',
             'title.min' => 'Sarlavha kamida :min ta belgidan iborat bo‘lishi kerak.',
             'content.required' => 'Maqola matni kiritish majburiy!',
         ]);
-        Post::create($data);
+        $tags = $data['tags'];
+        unset($data['tags']);
+//        dd($tags,$data);
+        $post = Post::create($data);
+//        foreach ($tags as $tag) {
+//            PostTag::firstOrCreate([
+//                'tag_id' => $tag,
+//                'post_id' => $post->id,
+//            ]);
+//        } POSTGA TAGS larni qo'shganda posta alohida olib tagslarni post_tags jadvaliga qo'shish bir usuli
+
+        $post->tags()->attach($tags); // agar $post->tags bo'lsa faqatgina array(massiv) qaytaradi agar $post->tags() bunda qavs() qo'shilsa query, yani bazaga so'rov jo'natiladi
         return redirect()->route('post.index');
     }
 
@@ -59,10 +73,9 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-//        $category = Category::find($post->id);
         $categories = Category::all();
-//        dd($category);
-        return view('post.edit', compact('post','categories'));
+        $tags = Tag::all();
+        return view('post.edit', compact('post','categories','tags'));
     }
 
     public function update(Post $post)
@@ -72,13 +85,21 @@ class PostController extends Controller
             'content' => 'required|string',
             'image' => 'nullable|string',
             'category_id' => '',
+            'tags' => ''
         ], [
             'title.required' => 'Sarlavha kiritish majburiy!',
             'title.min' => 'Sarlavha kamida :min ta belgidan iborat bo‘lishi kerak.',
             'content.required' => 'Maqola matni kiritish majburiy!',
         ]);
 
+        $tags = $data['tags'] ?? [];
+
+        unset($data['tags']);
+
+
         $post->update($data);
+        $post->tags()->sync($tags);
+
         return redirect()->route('post.show', $post->id);
     }
 

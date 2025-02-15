@@ -31,18 +31,21 @@
                 <label for="category_id w-100">Categories</label>
                 <select class="w-100 mb-2 custom_selects" name="category_id" id="category_id">
                     @foreach($categories as $category)
-                        <option class="custom_class" value="{{ $category->id }}">{{ $category->title }}</option>
+                        <option class="custom_class"
+                                {{ old('category_id') == $category->id ? 'selected' : '' }}
+                                value="{{ $category->id }}">{{ $category->title }}</option>
                     @endforeach
                 </select>
             </div>
 
             <div class="mb-2">
                 <label for="tags">Tags</label>
-                <select class="form-select" multiple aria-label="Tags" id="tags">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <select class="form-select" multiple aria-label="Tags" id="tags" name="tags[]">
+                    @foreach($tags as $tag)
+                        <option class="custom_class" value="{{ $tag->id }}">{{ $tag->title }}</option>
+                    @endforeach
+
+
                 </select>
             </div>
 
