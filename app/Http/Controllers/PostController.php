@@ -13,7 +13,8 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-
+        $tag = Tag::find(1);
+        dd($tag->posts);
 //        $category = Category::find(2);
 //        $post = Post::find(1);
 //        $tag = Tag::find(2);
