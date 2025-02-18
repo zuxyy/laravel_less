@@ -26,8 +26,8 @@ return new class extends Migration
 
                 $table->unsignedBigInteger('category_id')->nullable();
 
-                $table->foreign('category_id')->references('status')->on('categories'); // ushbu migratsiya db dagi tablega `posts` tableiga `category_id` (column) ni qo'shada va tabledagi `categories` jadvali bilan "status" bilan bog'laydi
-                $table->foreignId('category_id');
+                $table->foreign('category_id')->references('id')->on('categories'); // ushbu migratsiya db dagi tablega `posts` tableiga `category_id` (column) ni qo'shada va tabledagi `categories` jadvali bilan "status" bilan bog'laydi
+//                $table->foreignId('category_id');
             });
         }
     }

@@ -4,7 +4,7 @@
         @error('title')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
-        <form action="{{ route('post.store') }}" method="post">
+        <form action="{{ route('Post.store') }}" method="post">
             @csrf
             <div class="form-group mb-2">
                 <label for="title">Title</label>

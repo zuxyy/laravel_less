@@ -18,7 +18,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a href="{{ route('main.index') }}" class="nav-link">Main</a></li>
-                    <li class="nav-item"><a href="{{ route('post.index') }}"class="nav-link">Post</a></li>
+                    <li class="nav-item"><a href="{{ route('Post.index') }}"class="nav-link">Post</a></li>
                     <li class="nav-item"><a href="{{ route('contact.index') }}" class="nav-link">Contacts</a></li>
                     <li class="nav-item"><a href="{{ route('about.index') }}" class="nav-link">About</a></li>
                 </ul>

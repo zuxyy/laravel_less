@@ -14,25 +14,25 @@ class PostController extends Controller
     {
         $posts = Post::all();
         $tag = Tag::find(1);
-        dd($tag->posts);
+//        dd($tag->posts);
 //        $category = Category::find(2);
-//        $post = Post::find(1);
+//        $Post = Post::find(1);
 //        $tag = Tag::find(2);
 
 //        dd($posts->category);
-//        dd($post->tags);
+//        dd($Post->tags);
 //        dump($tag->id);
 //        dd($tag->posts);
 
 
-        return view('post.index', compact('posts'));
+        return view('Post.index', compact('posts'));
     }
 
     public function create()
     {
         $categories = Category::all();
         $tags = Tag::all();
-        return view('post.create', compact('categories', 'tags'));
+        return view('Post.create', compact('categories', 'tags'));
     }
 
     public function store()
@@ -48,35 +48,40 @@ class PostController extends Controller
             'title.min' => 'Sarlavha kamida :min ta belgidan iborat bo‘lishi kerak.',
             'content.required' => 'Maqola matni kiritish majburiy!',
         ]);
-        $tags = $data['tags'];
+        if (!empty($tags)){
+            $tags = $data['tags'];
+
+        }
         unset($data['tags']);
 //        dd($tags,$data);
         $post = Post::create($data);
 //        foreach ($tags as $tag) {
 //            PostTag::firstOrCreate([
 //                'tag_id' => $tag,
-//                'post_id' => $post->id,
+//                'post_id' => $Post->id,
 //            ]);
 //        } POSTGA TAGS larni qo'shganda posta alohida olib tagslarni post_tags jadvaliga qo'shish bir usuli
 
-        $post->tags()->attach($tags); // agar $post->tags bo'lsa faqatgina array(massiv) qaytaradi agar $post->tags() bunda qavs() qo'shilsa query, yani bazaga so'rov jo'natiladi
-        return redirect()->route('post.index');
+        if (!empty($tags)){
+            $post->tags()->attach($tags); // agar $Post->tags bo'lsa faqatgina array(massiv) qaytaradi agar $Post->tags() bunda qavs() qo'shilsa query, yani bazaga so'rov jo'natiladi
+        }
+        return redirect()->route('Post.index');
     }
 
     public function show(Post $post)
     {
-//        $categories = Category::find($post);
+//        $categories = Category::find($Post);
 ////        dd($categories);
-//   dd($post);
+//   dd($Post);
 
-        return view('post.view', compact('post'));
+        return view('Post.view', compact('post'));
     }
 
     public function edit(Post $post)
     {
         $categories = Category::all();
         $tags = Tag::all();
-        return view('post.edit', compact('post','categories','tags'));
+        return view('Post.edit', compact('post','categories','tags'));
     }
 
     public function update(Post $post)
@@ -101,13 +106,13 @@ class PostController extends Controller
         $post->update($data);
         $post->tags()->sync($tags);
 
-        return redirect()->route('post.show', $post->id);
+        return redirect()->route('Post.show', $post->id);
     }
 
     public function destroy(Post $post)
     {
         $post->forceDelete();
-        return redirect()->route('post.index');
+        return redirect()->route('Post.index');
     }
 
     # CUSTOM METHOD
@@ -116,7 +121,7 @@ class PostController extends Controller
         $posts = Post::onlyTrashed()->get(); // Faqat o‘chirilgan postlarni olish
         $hasDeletedPosts = $posts->count(); // O'chirilgan postlar borligini tekshirish
 
-        return view('post.deletedPosts', compact('posts', 'hasDeletedPosts'));
+        return view('Post.deletedPosts', compact('posts', 'hasDeletedPosts'));
     }
 
 
@@ -124,13 +129,13 @@ class PostController extends Controller
     {
         $post = Post::withTrashed()->find($post);
         $post->restore();
-        return redirect()->route('post.deletedPosts');
+        return redirect()->route('Post.deletedPosts');
     }
 
     public function restoreAllPost()
     {
         $allPost = Post::onlyTrashed()->restore(); // Faqat o‘chirilgan postlarni tiklash
-        return redirect()->route('post.deletedPosts');
+        return redirect()->route('Post.deletedPosts');
     }
 
 

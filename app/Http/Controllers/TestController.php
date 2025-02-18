@@ -71,11 +71,11 @@ class TestController extends Controller
 
     public function delete()
     {
-//        $post = Post::find(3);
-//        $post->delete($post);
+//        $Post = Post::find(3);
+//        $Post->delete($Post);
         // DELETE QILINGANLARNI QAYTARISH
-//        $post = Post::withTrashed()->find(3);
-//        $post->restore($post);
+//        $Post = Post::withTrashed()->find(3);
+//        $Post->restore($Post);
     }
     // First or Create , BAZADAN TEKSHIRIB AGAR BO'LMASA CREATE QILISH UCHUN KERAKLI FUNCTION
     public function firstOrCreate()

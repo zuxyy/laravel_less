@@ -1,7 +1,7 @@
 @extends('layout.main')
 @section('content')
     <div class="">
-        <form action="{{ route('post.update', $post->id) }}" method="post">
+        <form action="{{ route('Post.update', $post->id) }}" method="post">
             @csrf
             @method('PATCH')
             <div class="form-group mb-2">
@@ -45,7 +45,7 @@
                     @foreach($tags as $tag)
                         <option
                             {{ in_array($tag->id, $post->tags->pluck('id')->toArray()) ? 'selected' :  ''}}
-{{--                            @foreach($post->tags as $postTag)--}}
+{{--                            @foreach($Post->tags as $postTag)--}}
 {{--                                {{ $tag->id === $postTag->id ? ' selected' : '' }}--}}
 {{--                            @endforeach--}}{{-- FOREACH BILAN HAM QILSA BO'LADI--}}
                             value="{{ $tag->id }}">

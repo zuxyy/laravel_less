@@ -40,36 +40,36 @@ Route::get('/main', [MainController::class, 'index'])->name('main.index');
 
 # POST CRUD SYSTEM
 # POST INDEX
-Route::get('/posts', [PostController::class, 'index'])->name('post.index');
+Route::get('/posts', [PostController::class, 'index'])->name('Post.index');
 # POST INDEX
 
 # POST CREATE
-Route::get('/posts/create', [PostController::class, 'create'])->name('post.create');
+Route::get('/posts/create', [PostController::class, 'create'])->name('Post.create');
 # POST CREATE
 # POST STORE --> formada kelgan malumotlarni yig'ib bazaga yuborish
-Route::post('/posts', [PostController::class, 'store'])->name('post.store');
+Route::post('/posts', [PostController::class, 'store'])->name('Post.store');
 # POST STORE
 
 # DELETED POSTS
-Route::get('/posts/deleted-posts', [PostController::class, 'deletedPosts'])->name('post.deletedPosts');
+Route::get('/posts/deleted-posts', [PostController::class, 'deletedPosts'])->name('Post.deletedPosts');
 # DELETED POSTS
 # DELETED POSTS RESTORE
-Route::get('/posts/restore-post/{post}', [PostController::class, 'restoreDeletedPost'])->name('post.restorePost');
+Route::get('/posts/restore-Post/{Post}', [PostController::class, 'restoreDeletedPost'])->name('Post.restorePost');
 # DELETED POSTS RESTORE
 # RESTORE ALL POST
-Route::get('/posts/restore-all-post/', [PostController::class, 'restoreAllPost'])->name('post.restoreAllPost');
+Route::get('/posts/restore-all-Post/', [PostController::class, 'restoreAllPost'])->name('Post.restoreAllPost');
 # RESTORE ALL POST
 
 # POST VIEW --> DB DAGI BARCHA MALUMOTLARNI VIEWDA CHIQARISH
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('post.show');
+Route::get('/posts/{Post}', [PostController::class, 'show'])->name('Post.show');
 # POST VIEW
 
 # POST EDIT
-Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('post.edit');
-Route::patch('/posts/{post}', [PostController::class, 'update'])->name('post.update');
+Route::get('/posts/{Post}/edit', [PostController::class, 'edit'])->name('Post.edit');
+Route::patch('/posts/{Post}', [PostController::class, 'update'])->name('Post.update');
 # POST EDIT
 # POST DELETE
-Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('post.delete');
+Route::delete('/posts/{Post}', [PostController::class, 'destroy'])->name('Post.delete');
 # POST DELETE
 
 
