@@ -1,17 +1,15 @@
 @extends('layout.main')
 @section('content')
     <div class="">
-        @error('title')
-        <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-        <form action="{{ route('Post.store') }}" method="post">
+
+        <form action="{{ route('post.store') }}" method="post">
             @csrf
             <div class="form-group mb-2">
                 <label for="title">Title</label>
                 <input type="text" value="{{ old('title') }}" name="title"
                        class="form-control @error('title') is-invalid @enderror" id="title" placeholder="Title">
                 @error('title')
-                <p class="error-message">{{ $message }}</p>
+                <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -19,7 +17,7 @@
                 <label for="content">Content</label>
                 <input type="text" name="content" class="form-control" id="content" placeholder="Content">
                 @error('content')
-                <p class="error-message">{{ $message }}</p>
+                <p class="error-message alert alert-danger mt-2">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-group mb-3">
@@ -30,6 +28,7 @@
             <div class="mb-2">
                 <label for="category_id w-100">Categories</label>
                 <select class="w-100 mb-2 custom_selects" name="category_id" id="category_id">
+                    <option value="" disabled selected>Select category</option>
                     @foreach($categories as $category)
                         <option class="custom_class"
                                 {{ old('category_id') == $category->id ? 'selected' : '' }}
@@ -37,6 +36,9 @@
                     @endforeach
                 </select>
             </div>
+            @error('category_id')
+            <div class="error-message mb-2">{{ $message }}</div>
+            @enderror
 
             <div class="mb-2">
                 <label for="tags">Tags</label>
@@ -49,9 +51,6 @@
                 </select>
             </div>
 
-            @error('content')
-            <p class="error-message">{{ $message }}</p>
-            @enderror
 
             <button type="submit" class="btn btn-primary">Create</button>
         </form>

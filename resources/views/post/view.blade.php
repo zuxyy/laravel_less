@@ -23,14 +23,14 @@
 {{--                        @endforeach--}}
 {{--                    </td>--}}
                     <td class="d-flex gap-2 justify-content-center">
-                        <a href="{{ route('Post.edit', $post->id) }}" class="btn btn-primary">Update</a>
-                        <form action="{{ route('Post.delete', $post->id) }}" method="post">
+                        <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">Update</a>
+                        <form action="{{ route('post.delete', $post->id) }}" method="post">
                             @csrf
                             @method("delete")
                             <button class="btn btn-danger">Delete</button>
 
                         </form>
-                        <a href="{{ route('Post.index') }}" class="btn btn-success">Back</a>
+                        <a href="{{ route('post.index') }}" class="btn btn-success">Back</a>
                     </td>
                 </tr>
             </tbody>

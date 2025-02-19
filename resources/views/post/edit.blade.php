@@ -1,7 +1,7 @@
 @extends('layout.main')
 @section('content')
     <div class="">
-        <form action="{{ route('Post.update', $post->id) }}" method="post">
+        <form action="{{ route('post.update', $post->id) }}" method="post">
             @csrf
             @method('PATCH')
             <div class="form-group mb-2">

@@ -4,11 +4,11 @@
         @foreach($posts as $key => $post)
             <div class="d-flex gap-2">
                 <div class="">{{ $key + 1 }}. {{ $post->title }}</div>
-                <a href="{{ route('Post.restorePost', $post->id) }}">Restore post</a>
+                <a href="{{ route('post.restorePost', $post->id) }}">Restore post</a>
             </div>
         @endforeach
             @if($hasDeletedPosts > 2)
-                <a href="{{ route('Post.restoreAllPost') }}">Restore All Post</a>
+                <a href="{{ route('post.restoreAllPost') }}">Restore All Post</a>
             @endif
     </div>
 
@@ -24,6 +24,6 @@
 {{--        </form>--}}
 {{--    </div>--}}
     <div class="">
-        <a href="{{ route('Post.index') }}" class="btn btn-success">Back</a>
+        <a href="{{ route('post.index') }}" class="btn btn-success">Back</a>
     </div>
 @endsection
