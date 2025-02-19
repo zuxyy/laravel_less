@@ -29,18 +29,29 @@
             </td>
 
 
-            <td class="d-flex gap-2 justify-content-center">
-                <a href="{{ route('post.show', $post->id) }}" class="btn btn-info">View</a>
-                <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">Update</a>
-                <form action="{{ route('post.delete', $post->id) }}" method="post">
-                    @csrf
-                    @method("delete")
-                    <button class="btn btn-danger">Delete</button>
+            <td>
+                <div class="d-flex gap-2 justify-content-center">
+                    <a href="{{ route('post.show', $post->id) }}" class="btn btn-info">View</a>
+                    <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">Update</a>
+                    <form action="{{ route('post.delete', $post->id) }}" method="post">
+                        @csrf
+                        @method("delete")
+                        <button class="btn btn-danger">Delete</button>
 
-                </form>
+                    </form>
+                </div>
             </td>
         </tr>
         @endforeach
 
         </tbody>
+
+        </table>
+
+
+        <div class="mt-3 d-flex justify-content-center">
+            {{ $posts->links() }}
+        </div>
+
+
 @endsection
