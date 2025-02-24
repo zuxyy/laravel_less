@@ -50,7 +50,7 @@
 
 
         <div class="mt-3 d-flex justify-content-center">
-            {{ $posts->links() }}
+            {{ $posts->withQueryString()->links() }}
         </div>
 
 

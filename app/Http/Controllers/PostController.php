@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Filters\PostFilter;
 use App\Http\Requests\PostFilterRequest;
 use App\Http\Requests\PostStoreRequest;
 use App\Http\Requests\PostUpdateRequest;
@@ -18,7 +19,7 @@ class PostController extends Controller
         $data = $request->validated();
 //        dd($data);
 
-        $query = Post::query();
+//        $query = Post::query();
 
 //        if (!empty($data['category_id'])) {
 //            $query->where('category_id', $data['category_id']);
@@ -32,9 +33,12 @@ class PostController extends Controller
 //            $query->where('content', 'like', '%' . $data['content'] . '%');
 //        } Filter
 
-        $posts = $query->get();
+//        $posts = $query->get();
 
-        dd($posts);
+        $filter = app()->make(PostFilter::class, ['queryParams' => array_filter($data)]);
+        dd($filter);
+        $posts = Post::filter($filter)->paginate(15);
+
 
 //        $posts = Post::paginate(10);
         return view('post.index', compact('posts'));
