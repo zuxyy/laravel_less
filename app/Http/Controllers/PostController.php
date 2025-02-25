@@ -36,7 +36,7 @@ class PostController extends Controller
 //        $posts = $query->get();
 
         $filter = app()->make(PostFilter::class, ['queryParams' => array_filter($data)]);
-        dd($filter);
+//        dd($filter);
         $posts = Post::filter($filter)->paginate(15);
 
 
