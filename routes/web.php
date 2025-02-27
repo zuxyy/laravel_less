@@ -1,13 +1,12 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
-use App\Http\Controllers\Post\EditController;
 //use App\Http\Controllers\PostController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\QuestionController;
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\Admin\Post\PostController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // POST INDEX
 //Route::get('/posts', [TestController::class, 'index']);
@@ -39,6 +36,8 @@ Route::get('/', function () {
 //Route::get('/posts/update-or-create', [TestController::class, 'updateOrCreate']);
 
 
+//Route::middleware('admin')->prefix('admin')->name('admin');
+//Route::get('/admin', [PostController::class, 'index'])->name('admin');
 Route::get('/about', [AboutController::class, 'index'])->name('about.index');
 Route::get('/contacts', [ContactsController::class, 'index'])->name('contact.index');
 Route::get('/main', [MainController::class, 'index'])->name('main.index');
@@ -77,6 +76,23 @@ Route::get('/main', [MainController::class, 'index'])->name('main.index');
 //# POST DELETE
 
 
+//Route::controller(PostController::class)->prefix('admin')->group(function () {
+//    Route::get('/', 'index')->name('post.index');
+//
+//    Route::controller(PostController::class)->prefix('admin')->group(function () {
+//        Route::get('/', 'index')->name('post.index');
+//    });
+//});
+//Route::prefix('admin')->name('admin.')->group(function () {
+//    Route::get('/post', [PostController::class, 'index'])->name('post.index');
+//});
+
+
+Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/post', [PostController::class, 'index'])->name('post.index');
+});
+
 Route::controller(PostController::class)->prefix('posts')->group(function () {
     Route::get('/', 'index')->name('post.index');
     Route::get('/create', 'create')->name('post.create');
@@ -94,3 +110,7 @@ Route::controller(PostController::class)->prefix('posts')->group(function () {
 //    Route::get('/', 'show')->name('question.show');
 //    Route::post('/{question}', 'store')->name('question.store');
 //});
+
+Auth::routes();
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
