@@ -26,7 +26,9 @@ class PostFilterRequest extends FormRequest
             'content' => 'string',
             'image' => 'nullable|string',
             'category_id' => ['integer', 'exists:categories,id'],
-            'tags' => '',
+            'page' => '',
+            'per_page' => '',
+//            'tags' => '',
         ];
     }
 

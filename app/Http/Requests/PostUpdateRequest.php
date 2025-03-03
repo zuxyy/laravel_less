@@ -23,10 +23,10 @@ class PostUpdateRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'min:3', 'max:255'],
-            'content' => 'required|string',
+            'content' => 'nullable|string',
             'image' => 'nullable|string',
             'category_id' => '',
-            'tags' => ''
+            'tags' => "array|nullable",
         ];
     }
 }

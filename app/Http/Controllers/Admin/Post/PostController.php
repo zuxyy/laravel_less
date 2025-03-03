@@ -7,9 +7,15 @@ use App\Http\Filters\PostFilter;
 use App\Http\Requests\PostFilterRequest;
 use App\Models\Post;
 use Illuminate\Support\Number;
+use Laravel\Sanctum\Guard;
 
 class PostController extends Controller
 {
+//    public function __construct()
+//    {
+//        $this->middleware('auth:admin');
+//    }
+
     public function index(PostFilterRequest $request){
         $this->authorize('index', auth()->user());
         $data = $request->validated();

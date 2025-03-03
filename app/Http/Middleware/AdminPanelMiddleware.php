@@ -15,14 +15,15 @@ class AdminPanelMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!empty(auth()->user()->role)){
-            $userRole = auth()->user()->role;
-            if ($userRole != 'admin'){
+//        if (!empty(auth()->user()->role)){
+//            $userRole = auth()->user()->role;
+            if (auth()->user()->role !== 'admin'){
                 return redirect()->route('home');
             }
-        }else{
-            return redirect()->route('home');
-        }
+//        }else{
+//            return redirect()->route('home');
+//        }
+//        dd($next($request));
         return $next($request);
     }
 }

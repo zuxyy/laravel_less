@@ -6,6 +6,7 @@ use App\Http\Filters\PostFilter;
 use App\Http\Requests\PostFilterRequest;
 use App\Http\Requests\PostStoreRequest;
 use App\Http\Requests\PostUpdateRequest;
+use App\Http\Resources\Post\PostResource;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
@@ -16,7 +17,7 @@ class PostController extends Controller
     public function index(PostFilterRequest $request)
     {
 
-        $data = $request->validated();
+
 //        dd($data);
 
 //        $query = Post::query();
@@ -35,13 +36,18 @@ class PostController extends Controller
 
 //        $posts = $query->get();
 
+        $data = $request->validated();
+        $page = $data['page'] ?? 1;
+        $perPage = $data['per_page'] ?? 10;
         $filter = app()->make(PostFilter::class, ['queryParams' => array_filter($data)]);
 //        dd($filter);
-        $posts = Post::filter($filter)->paginate(15);
+        $posts = Post::filter($filter)->paginate($perPage, ['*'], 'page', $page);
 
+
+        return PostResource::collection($posts);
 
 //        $posts = Post::paginate(10);
-        return view('post.index', compact('posts'));
+//        return view('post.index', compact('posts'));
     }
 
     public function create()
@@ -57,6 +63,7 @@ class PostController extends Controller
     public function store(PostStoreRequest $request)
     {
         $data = $request->validated();
+//        dd($data);
 
 //        dd('gg');
 //        $this->service->storePost($data);
@@ -75,7 +82,17 @@ class PostController extends Controller
             $post->tags()->attach($tags); // agar $Post->tags bo'lsa faqatgina array(massiv) qaytaradi agar $Post->tags() bunda qavs() qo'shilsa query, yani bazaga so'rov jo'natiladi
         }
 
-        return redirect()->route('post.index');
+//        $arr = [
+//            'title' => $post->title,
+//            'content' => $post->content,
+//            'image' => $post->image,
+//        ];
+//
+//        return $arr;
+
+        return new PostResource($post);
+
+//        return redirect()->route('post.index');
     }
 
     public function show(Post $post)
@@ -96,22 +113,17 @@ class PostController extends Controller
 
     public function update(PostUpdateRequest $request, Post $post)
     {
+
         $data = $request->validated();
-//            [
-//            'title.required' => 'Sarlavha kiritish majburiy!',
-//            'title.min' => 'Sarlavha kamida :min ta belgidan iborat bo‘lishi kerak.',
-//            'content.required' => 'Maqola matni kiritish majburiy!',
-//        ]);
 
         $tags = $data['tags'] ?? [];
 
         unset($data['tags']);
-
-
         $post->update($data);
         $post->tags()->sync($tags);
-
-        return redirect()->route('post.show', $post->id);
+        $post = $post->fresh();
+        return new PostResource($post);
+//        return redirect()->route('post.show', $post->id);
     }
 
     public function destroy(Post $post)

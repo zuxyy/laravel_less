@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
 //use App\Http\Controllers\PostController;
-use App\Http\Controllers\Admin\Post\PostController;
+//use App\Http\Controllers\Admin\Post\PostController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -90,18 +92,18 @@ Route::get('/main', [MainController::class, 'index'])->name('main.index');
 
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/post', [PostController::class, 'index'])->name('post.index');
+    Route::get('/posts', [\App\Http\Controllers\Admin\Post\PostController::class, 'index'])->name('post.index');
 });
 
 Route::controller(PostController::class)->prefix('posts')->group(function () {
     Route::get('/', 'index')->name('post.index');
     Route::get('/create', 'create')->name('post.create');
-    Route::post('/posts', 'store')->name('post.store');
+    Route::post('/', 'store')->name('post.store'); // BU YERGA TO'G'RILANDI ✅
     Route::get('/{post}/', 'show')->name('post.show');
-    Route::get('/posts/{post}/edit', 'edit')->name('post.edit');
+    Route::get('/{post}/edit', 'edit')->name('post.edit'); // `/posts/{post}/edit` bo‘lishi uchun ✅
     Route::patch('/{post}', 'update')->name('post.update');
-    Route::delete('/posts/{post}', 'destroy')->name('post.delete');
-    Route::get('/posts/deleted-posts', 'deletedPosts')->name('post.deletedPosts');
+    Route::delete('/{post}', 'destroy')->name('post.delete');
+    Route::get('/deleted-posts', 'deletedPosts')->name('post.deletedPosts'); // `/posts/deleted-posts` bo‘lishi uchun ✅
 });
 
 

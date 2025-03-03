@@ -27,6 +27,7 @@ class PostStoreRequest extends FormRequest
             'image' => 'nullable|string',
             'category_id' => ['required', 'integer', 'exists:categories,id'],
             'tags' => '',
+            'likes' => ''
         ];
     }
     public function messages()
